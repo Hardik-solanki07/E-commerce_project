@@ -1,0 +1,214 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+    {% for message in messages %}
+    <div class="container-fluid p-0" style="width:1150px;">
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Sub Categories</h4>
+                        {% for i in sid %}
+                        <ul class="filter-catagories">
+                            <li><a href="/shop?cid={{i.id}}">{{i.name}}</a></li>
+                            {% comment %} <li><a href="#">Women</a></li>
+                            <li><a href="#">Kids</a></li> {% endcomment %}
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Brand</h4>
+                        {% for i in bid %}
+                        <ul class="filter-catagories">
+                            <li><a href="/shop?bcid={{i.id}}">{{i.name}}</a></li>
+                            {% comment %} <li><a href="#">Women</a></li>
+                            <li><a href="#">Kids</a></li> {% endcomment %}
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">price</h4>
+                        {% for i in priceid %}
+                        <ul class="filter-catagories">
+                            <li><a href="/shop?pcid={{i.id}}">{{i.price_range}}</a></li>
+                            {% comment %} <li><a href="#">Women</a></li>
+                            <li><a href="#">Kids</a></li> {% endcomment %}
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">sort by</h4>
+                       
+                        <ul class="filter-catagories">
+                            <li><a class="dropdown-item" href="/shop?sort=lth">Low To Hight</a></li>
+                            <li><a class="dropdown-item" href="/shop?sort=htl">Hight To Low</a></li>
+                            <li><a class="dropdown-item" href="/shop?sort=atz">A To Z</a></li>
+                            <li><a class="dropdown-item" href="/shop?sort=zta">Z To A</a></li>
+                        </ul>
+                     
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">color</h4>
+
+                    <ul style="list-style:none">
+                        <div class="row">
+                        {% for i in cid %}
+                        <div class="col-lg-6 col-sm-6">
+                        <li>
+                            <a href="/shop?ccid={{i.id}}">
+                                <div style="display: flex;margin:5px">
+                                <i class="fa-solid fa-circle" style="color:{{i.code}}" ></i><p style="color:{{i.code}};margin:-5px 0px 0px 10px">{{i.name}}</p></div>
+                            </a>
+                        </li>
+
+                         </div>
+                        
+                        {% endfor %}
+                    </div>
+                    </ul>
+                </div>
+                    <div class="filter-widget" style="width:300px">
+                        <h4 class="fw-title">Size</h4>
+                        <div class="fw-size-choose">
+                        {% for i in sizeid %}
+                            <div class="sc-item">
+                                <input type="radio" id="s-size">
+                                <label><a href="/shop?seeid={{i.id}}">{{i.name}}</a></label>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Tags</h4>
+                        <div class="fw-tags">
+                            <a href="#">Towel</a>
+                            <a href="#">Shoes</a>
+                            <a href="#">Coat</a>
+                            <a href="#">Dresses</a>
+                            <a href="#">Trousers</a>
+                            <a href="#">Men's hats</a>
+                            <a href="#">Backpack</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7">
+                               
+                            </div>
+                            <div class="col-lg-5 col-md-5 text-right">
+                                <p>Show 1 Of {{product_count}} Product</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="row">
+                            {% for i in pid %}
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="product-item">
+                                    <div class="pi-pic" style="height:300px" >
+                                        <img src="{{i.image.url}}"alt="logo">
+                                        <div class="sale pp-sale">Sale</div>
+                                        <div class="icon">
+                                            <a href="{% url 'add_to_wishlist' i.id  %}" class="icon_heart_alt" style="color:Blue;"></a>
+                                        </div>
+                                        <ul>
+                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            <li class="quick-view"><a href="{% url 'cart' i.id %}">+ Quick View</a></li>
+                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pi-text">
+                                        <div class="catagory-name">{{i.main_category}}</div>
+                                        <a href="#">
+                                            <h5>{{i.name}}</h5>
+                                        </a>
+                                        <div class="product-price">
+                                        
+                                            &#8377;{{i.price}}
+                                            <span>&#8377;200</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="loading-more">
+                        <i class="icon_loading"></i>
+                        <a href="#">
+                            Loading More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+{% endblock %}
+   

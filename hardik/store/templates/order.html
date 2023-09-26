@@ -1,0 +1,155 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+{% if count < 1 %} 
+    <div class="container-fluid  mt-100">
+        <div class="row">
+    
+            <div class="col-md-12">
+    
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Cart</h5>
+                    </div>
+                    <div class="card-body cart">
+                        <div class="col-sm-12 empty-cart-cls text-center">
+                            <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                            <h3><strong>Your order is Empty</strong></h3>
+                            <h4>Add something to make me happy :)</h4>
+                            <a href="{% url 'shop' %}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+    
+    
+                        </div>
+                    </div>
+                </div>
+    
+    
+            </div>
+    
+        </div>
+    
+        </div>
+    
+        {% else %}
+    
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="{% url 'shop' %}">Shop</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                    <th><i class="ti-close"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in show1 %}
+
+                                <tr>
+                               
+                                    
+                                    <td class="cart-pic first-row"><img height="200px" src="{{i.image.url}}" alt=""></td>
+                                    <td class="cart-title first-row">
+                                        <h5>{{i.product_name}}</h5>
+                                    </td>
+                                    <td class="p-price first-row">&#8377;{{i.price}}</td>
+                                        <td class="quantity">
+                                            <div class="quantity buttons-add-minus">
+                                                <label for="" style="margin: 10px;">{{i.qtn}}</label>
+                                            </div>
+                                        </td>
+                                    <td>&#8377; {{i.product_total}}</td>
+                                    <td>{{i.datetime}}</td>
+                                    <td><a class="ti-close" href="{% url 'remove_order' i.id %}"></a></td>
+                          
+
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="cart-buttons">
+                            </div>
+                           
+                        </div>
+                        
+                        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                              
+                                <ul>
+                                    <li class="cart-total">Total <span>&#8377;{{total0}}</span></li>
+                                </ul>
+                                <a href="{% url 'check_out' %}" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                <a href="{% url 'invoice' %}" class="proceed-btn">invoice</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-1.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-2.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-3.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-4.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-5.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+    {% endif %}
+{% endblock %}
